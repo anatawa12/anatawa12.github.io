@@ -6,9 +6,6 @@
 </head>
 <body>
 <h4>DataChannel signaling, multi-stream 2018</h4>
-<input type="checkbox" id="use_broadcast_channel" checked="1">use BroadcastChannel</input>
-&nbsp;
-<input type="checkbox" id="use_unified_plan" checked="1">use Unified Plan (Firefox and Chrome 70-)</input>
 <br />
 <button type="button" onclick="connect(true);">Connect DataChannel</button>
 <button type="button" onclick="hangUp();">Hang Up</button>
@@ -18,19 +15,12 @@
 <button type="button" onclick="startVideo();">Start Media</button>
 <button type="button" onclick="stopVideo();">Stop Media</button>
 &nbsp;
-<button type="button" onclick="addTrack('video', 0);">add Video</button>
-<button type="button" onclick="addTrack('audio', 0);">add Audo</button>
-<button type="button" onclick="removeTrack('video', 0);">remove Video</button>
-<button type="button" onclick="removeTrack('audio', 0);">remove Audo</button>
-<br />
-<button type="button" onclick="addTrack('video', 1);">add Video of Canvas</button>
-<button type="button" onclick="addTrack('audio', 2);">add Audio of WebAudio</button>
-<button type="button" onclick="removeTrack('video', 1);">remove Video of Canvas</button>
-<button type="button" onclick="removeTrack('audio', 2);">remove Audio of WebAudio</button>
+<button type="button" onclick="addTrack('video');">add Video</button>
+<button type="button" onclick="addTrack('audio');">add Audo</button>
+<button type="button" onclick="removeTrack('video');">remove Video</button>
+<button type="button" onclick="removeTrack('audio');">remove Audo</button>
 <div style="display:grid; grid-template-columns: 200px 200px 200px">
     <video id="local_video" autoplay style="width: 160px; height: 120px; border: 1px solid black;"></video>
-    <canvas width="160" height="120" id="local_canvas" style="border: solid 1px black"></canvas>
-    <audio id="local_audio" autoplay controls style="border: 1px solid black;"></audio>
 </div>
 <h4>remote Meida</h4>
 <div id="remote_container">
@@ -60,18 +50,14 @@
     //   - sudo video with canvas, sudo auido with webaudio
     //   - broadband channel
     let localStream = null;
-    let remoteStream = null;
     let peerConnection = null;
     let dataChannel = null;
     const localVideo = document.getElementById('local_video');
-    const localAudio = document.getElementById('local_audio');
-    //const remoteVideo = document.getElementById('remote_video');
     const textForSendSdp = document.getElementById('text_for_send_sdp');
     const textToReceiveSdp = document.getElementById('text_for_receive_sdp');
     const textForDataChannel = document.getElementById('text_for_datachannel');
     let senders = [];
     let remoteStreams = [];
-    let remoteVideos = [];
     const remoteContainer = document.getElementById('remote_container');
     function _logStream(msg, stream) {
         if (! stream) {
@@ -104,8 +90,7 @@
         }
     }
     function useUnifiedPlan() {
-        const unifiedPlanCheck = document.getElementById('use_unified_plan').checked;
-        return unifiedPlanCheck;
+        return true;
     }
     // --- broadcast channel
     const channelName = 'myroom';
@@ -140,22 +125,6 @@
                 setAnswer(description);
             }
         }
-    }
-    function useBroadcastChannel() {
-        const boradcastChecked = document.getElementById('use_broadcast_channel').checked;
-        if (! boradcastChecked) {
-            return false; // do not use broadcastChannel
-        }
-        if (! broadcast) {
-            return false; // broadcast not ready
-        }
-        if (! dataChannel) {
-            return true; // no datachannel, use broadcastChannel
-        }
-        if (dataChannel.readyState === 'open') {
-            return false; // datachannel ready, use it
-        }
-        return true;
     }
     // メッセージの送信
     //let messageString = JSON.stringify(messageObject);
@@ -195,10 +164,6 @@
         textForSendSdp.value = sessionDescription.sdp;
         textForSendSdp.focus();
         textForSendSdp.select();
-        if (useBroadcastChannel()) {
-            const messageString = JSON.stringify(sessionDescription);
-            broadcast.postMessage(messageString);
-        }
     }
     function copySdp() {
         textForSendSdp.focus();
@@ -291,36 +256,6 @@
             }
             let track = event.track;
             addRemoteTrack(track.kind, track, stream);
-            /*--
-            if (track.kind === 'video') {
-              if (! remoteStream) {
-                remoteStream = stream;
-                remoteVideo.srcObject = stream;
-                remoteVideo.play();
-                remoteVideo.volume = 0;
-              }
-              else if (remoteStream === stream) {
-                console.log('same remoteStream, ontrack(video)');
-              }
-              else {
-                console.warn('different remoteStream, ontrack(video)');
-              }
-            }
-            else if (track.kind === 'audio') {
-              if (! remoteStream) {
-                remoteStream = stream;
-                remoteVideo.srcObject = stream;
-                remoteVideo.play();
-                remoteVideo.volume = 0;
-              }
-              else if (remoteStream === stream) {
-                console.log('same remoteStream, ontrack(audio)');
-              }
-              else {
-                console.warn('different remoteStream, ontrack(audio)');
-              }
-            }
-            --*/
             if (! stream.onaddtrack) {
                 stream.onaddtrack = function (evt) {
                     _logStream('stream.onaddtrack', stream);
@@ -347,14 +282,6 @@
                     const tracks = stream.getTracks();
                     const trackCount = tracks.length;
                     console.log('onremovetrack tracks.lenght=' + trackCount);
-                    /*
-                    if (trackCount < 1) {
-                      console.log('----remote stream stoped---');
-                      remoteVideo.pause();
-                      remoteVideo.srcObject = null;
-                      remoteStream = null;
-                    }
-                    */
                     removeRemoteTrack(track.kind, track, stream);
                 };
             }
@@ -473,21 +400,13 @@
             console.error(err);
         }
     }
-    function addTrack(kind, index) {
+    function addTrack(kind) {
+        const index = 0;
         if (! peerConnection) {
             return;
         }
-        let stream = null;
-        if (index === 0) {
-            stream = localStream;
-        }
-        else if (index === 1) {
-            stream = canvasStream;
-        }
-        else if (index === 2) {
-            stream = audioStream;
-        }
-        if (! stream) {
+        let stream = localStream;
+        if (!stream) {
             return;
         }
         let track = null;
@@ -498,15 +417,15 @@
             track = stream.getAudioTracks()[0];
         }
         // let sender = peerConnection.addTrack(track); // another stream in chrome, error in firefox
-        let sender = peerConnection.addTrack(track, stream); // same stream
-        senders[kind + '_' + index] = sender;
+        senders[kind] = peerConnection.addTrack(track, stream);
     }
-    function removeTrack(kind, index) {
+    function removeTrack(kind) {
+        const index = 0;
         console.log('removing track kind=' + kind + ' ,index=' + index);
         if (! peerConnection) {
             return;
         }
-        const key = kind + '_' + index;
+        const key = kind;
         let sender = senders[key];
         if (sender) {
             peerConnection.removeTrack(sender);
@@ -556,8 +475,6 @@
         localVideo.play()
             .catch( err => console.error('Play ERROR:', err) );
         localVideo.volume = 0;
-        startCanvasAnimate();
-        startWebAudio();
     }
     function stopVideo() {
         localVideo.pause();
@@ -566,8 +483,6 @@
             stopLocalStream(localStream);
             localStream = null;
         }
-        stopCanvasAnimate();
-        stopWebAudio();
     }
     function stopLocalStream(stream) {
         let tracks = stream.getTracks();
@@ -576,100 +491,9 @@
         }
     }
     // ----- canvas ----
-    const localCanvas = document.getElementById('local_canvas');
-    let ctxCanvas = null;
     let canvasStream = null;
-    let animateId = null;
-    function startCanvasAnimate() {
-        ctxCanvas = localCanvas.getContext('2d');
-        animateId = window.requestAnimationFrame(_drawCanvas);
-        canvasStream = localCanvas.captureStream(10)
-        function _drawCanvas() {
-            const t = new Date();
-            const str = ('00' + t.getHours()).slice(-2) + ':' + ('00' + t.getMinutes()).slice(-2) + ':' + ('00' + t.getSeconds()).slice(-2);
-            //ctxCanvas.fillStyle = 'rgb(200, 200, ' + Math.floor(255.0 * t.getMilliseconds() / 1000.0) + ')';
-            ctxCanvas.fillStyle = 'white';
-            ctxCanvas.fillRect(0, 0, 160, 120);
-            ctxCanvas.font = '14px serif';
-            ctxCanvas.fillStyle = 'red';
-            ctxCanvas.fillText(str, 5, 20);
-            animateId = window.requestAnimationFrame(_drawCanvas);
-        }
-    }
-    function stopCanvasAnimate() {
-        if (animateId) {
-            window.cancelAnimationFrame(animateId);
-            animateId = null;
-            ctxCanvas = null;
-        }
-        if (canvasStream) {
-            stopLocalStream(canvasStream);
-            canvasStream = null;
-        }
-    }
     // ---- webAudio ---
-    let audioCtx = null;
-    if (window.AudioContext) {
-        audioCtx = new AudioContext();
-    }
-    else if (window.webkitAudioContext) {
-        audioCtx = new webkitAudioContext();
-    }
     let audioStream = null;
-    let audioNodes = [];
-    function startWebAudio() {
-        const osc1 =  audioCtx.createOscillator();
-        osc1.type = 'square';
-        osc1.frequency.value = 440; // value in hertz();
-        osc1.start();
-        audioNodes.push(osc1);
-        const osc2 =  audioCtx.createOscillator();
-        osc2.type = 'square';
-        osc2.frequency.value = 349; // value in hertz();
-        osc2.start();
-        audioNodes.push(osc2);
-        const osc3 =  audioCtx.createOscillator();
-        osc3.type = 'square';
-        osc3.frequency.value = 523; // value in hertz();
-        osc3.start();
-        audioNodes.push(osc3);
-        //osc1.connect(audioCtx.destination);
-        //osc2.connect(audioCtx.destination);
-        //osc3.connect(audioCtx.destination);
-        const gain =  audioCtx.createGain();
-        gain.gain.value = 0.4;
-        osc1.connect(gain);
-        osc2.connect(gain);
-        osc3.connect(gain);
-        //gain.connect(audioCtx.destination);
-        audioNodes.push(gain);
-        const mediaDestinationNode = audioCtx.createMediaStreamDestination();
-        //osc.connect(mediaDestinationNode);
-        //osc2.connect(mediaDestinationNode);
-        //osc3.connect(mediaDestinationNode);
-        gain.connect(mediaDestinationNode);
-        audioStream = mediaDestinationNode.stream;
-        audioNodes.push(mediaDestinationNode);
-        localAudio.srcObject = audioStream;
-        localAudio.play()
-            .catch( err => console.error('Play ERROR:', err) );
-        localAudio.volume = 0.0;
-    }
-    function stopWebAudio() {
-        localAudio.pause();
-        localAudio.srcObject = null;
-        if (audioStream) {
-            stopLocalStream(audioStream)
-            audioStream = null;
-        }
-        audioNodes.forEach(function(node) {
-            node.disconnect();
-            if (node.stop) {
-                node.stop();
-            }
-        });
-        audioNodes = [];
-    }
     // --- add elements for remote stream ---
     function addRemoteTrack(kind, track, stream) {
         const id = stream.id;

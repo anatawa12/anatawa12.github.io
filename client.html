@@ -27,7 +27,6 @@
 <button type="button" onclick="addTrack('audio', 2);">add Audio of WebAudio</button>
 <button type="button" onclick="removeTrack('video', 1);">remove Video of Canvas</button>
 <button type="button" onclick="removeTrack('audio', 2);">remove Audio of WebAudio</button>
-        <button type="button" onclick="playRemotes();">playRemotes</button>
 <div style="display:grid; grid-template-columns: 200px 200px 200px">
     <video id="local_video" autoplay style="width: 160px; height: 120px; border: 1px solid black;"></video>
     <canvas width="160" height="120" id="local_canvas" style="border: solid 1px black"></canvas>
@@ -697,7 +696,8 @@
         video.controls = true;
         remoteContainer.appendChild(video);
         video.srcObject = stream;
-//        video.play()            .catch( err => console.error('Play ERROR:', err) );
+        video.play()
+            .catch( err => console.error('Play ERROR:', err) );
     }
     function removeRemoteTrack(kind, track, stream) {
         const id = stream.id;
@@ -720,12 +720,6 @@
         video.pause();
         video.srcObject = null;
         remoteContainer.removeChild(video);
-    }
-
-    function playRemotes() {
-        for (const el of Array.from(document.getElementById('remote_container').children)) {
-            el.play();
-        }
     }
 </script>
 </html>

@@ -16,9 +16,9 @@
 <button type="button" onclick="startVideo();">Start Media</button>
 <button type="button" onclick="stopVideo();">Stop Media</button>
 &nbsp;
-<button type="button" onclick="addTrack('video');">add Video</button>
+<!--<button type="button" onclick="addTrack('video');">add Video</button>-->
 <button type="button" onclick="addTrack('audio');">add Audo</button>
-<button type="button" onclick="removeTrack('video');">remove Video</button>
+<!--<button type="button" onclick="removeTrack('video');">remove Video</button>-->
 <button type="button" onclick="removeTrack('audio');">remove Audo</button>
 <div style="display:grid; grid-template-columns: 200px 200px 200px">
     <video id="local_video" autoplay style="width: 160px; height: 120px; border: 1px solid black;"></video>
@@ -334,6 +334,7 @@
         };
         dc.onopen = function (evt) {
             console.log('datachannel open');
+            addTrack('audio');
         };
         dc.onclose = function (evt) {
             dataChannel = null;
@@ -469,8 +470,8 @@
         textForDataChannel.innerText = textForDataChannel.innerHTML + text + String.fromCharCode(13);
     }
     async function startVideo() {
-        const option = {video: false, audio: true};
-        const stream = await navigator.mediaDevices.getUserMedia(option)
+        const option = {video: true, audio: true};
+        const stream = await navigator.mediaDevices.getUserMedia(option);
         localStream = stream;
         localVideo.srcObject = localStream;
         localVideo.play()

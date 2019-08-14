@@ -6,6 +6,7 @@
 </head>
 <body>
 <h4>DataChannel signaling, multi-stream 2018</h4>
+
 <br />
 <button type="button" onclick="connect(true);">Connect DataChannel</button>
 <button type="button" onclick="hangUp();">Hang Up</button>
@@ -468,7 +469,7 @@
         textForDataChannel.innerText = textForDataChannel.innerHTML + text + String.fromCharCode(13);
     }
     async function startVideo() {
-        const option = {video: true, audio: true};
+        const option = {video: false, audio: true};
         const stream = await navigator.mediaDevices.getUserMedia(option)
         localStream = stream;
         localVideo.srcObject = localStream;

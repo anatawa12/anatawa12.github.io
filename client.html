@@ -20,8 +20,8 @@
 <button type="button" onclick="addTrack('audio');">add Audo</button>
 <!--<button type="button" onclick="removeTrack('video');">remove Video</button>-->
 <button type="button" onclick="removeTrack('audio');">remove Audo</button>
-<div style="display:grid; grid-template-columns: 200px 200px 200px">
-    <video id="local_video" autoplay style="width: 160px; height: 120px; border: 1px solid black;"></video>
+<div style="display:grid; grid-template-columns: 200px">
+    <video id="local_video" style="width: 160px; height: 120px; border: 1px solid black;"></video>
 </div>
 <h4>remote Meida</h4>
 <div id="remote_container">
@@ -474,8 +474,7 @@
         const stream = await navigator.mediaDevices.getUserMedia(option);
         localStream = stream;
         localVideo.srcObject = localStream;
-        localVideo.play()
-            .catch( err => console.error('Play ERROR:', err) );
+        //localVideo.play().catch( err => console.error('Play ERROR:', err) );
         localVideo.volume = 0;
     }
     function stopVideo() {

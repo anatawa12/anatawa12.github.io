@@ -38,8 +38,9 @@
     <button type="button" onclick="onSdpText();">Receive remote SDP</button><br />
     <textarea id="text_for_receive_sdp" rows="5" cols="60"></textarea>
 </p>
-<p>DataChannel message:&nbsp;<br/>
-
+<p>connect to&nbsp;<br/>
+    <input id="target_url" type="url">
+    <button type="button" onclick="connectUrl();">connect</button>
 </p>
 </body>
 <script>
@@ -534,6 +535,35 @@
         video.pause();
         video.srcObject = null;
         remoteContainer.removeChild(video);
+    }
+
+    const targetUrl = document.getElementById("target_url");
+    function connectUrl() {
+        const xhr = new XMLHttpRequest();
+
+
+        const sendSdpOld = sendSdp;
+
+        sendSdp = function(sessionDescription) {
+            xhr.open('POST', targetUrl.value);
+            xhr.setRequestHeader('content-type', 'application/sdp;charset=UTF-8');
+            xhr.send(sessionDescription.sdp);
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4) {
+                    if (xhr.status !== 200) {
+                        alert(`status is not 200 ${xhr.status}`)
+                    }
+                    console.log( xhr.responseText );
+                    textToReceiveSdp.value = xhr.responseText;
+                    onSdpText();
+                }
+            };
+            sendSdpOld(sessionDescription);
+            sendSdp = sendSdpOld;
+        };
+
+        connect(true);
+
     }
 </script>
 </html>

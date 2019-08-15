@@ -21,7 +21,7 @@
 <!--<button type="button" onclick="removeTrack('video');">remove Video</button>-->
 <button type="button" onclick="removeTrack('audio');">remove Audo</button>
 <div style="display:grid; grid-template-columns: 200px">
-    <video id="local_video" style="width: 160px; height: 120px; border: 1px solid black;"></video>
+    <video controls id="local_video" style="width: 160px; height: 120px; border: 1px solid black;"></video>
 </div>
 <h4>remote Meida</h4>
 <div id="remote_container">
@@ -470,7 +470,7 @@
         textForDataChannel.innerText = textForDataChannel.innerHTML + text + String.fromCharCode(13);
     }
     async function startVideo() {
-        const option = {video: true, audio: true};
+        const option = {video: false, audio: true};
         const stream = await navigator.mediaDevices.getUserMedia(option);
         localStream = stream;
         localVideo.srcObject = localStream;

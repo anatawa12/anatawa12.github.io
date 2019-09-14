@@ -8,7 +8,7 @@
     let audioBuffer;
     let lastAt;
     var ctx;
-    const wav = "./楽しいカジノ.wav";
+    const wav = "./楽しいカジノ.mp3";
     function start() {
         if (!bufferData) {
             alert("bufferData null");
@@ -27,13 +27,7 @@
                 lastAt = ctx.currentTime + 1;
                 audioSource.start(lastAt);
             }
-            {
-                const audioSource = ctx.createBufferSource();
-                audioSource.buffer = audioBuffer;
-                audioSource.connect(ctx.destination);
-                lastAt += 60 + 31.406;
-                audioSource.start(lastAt);
-            }
+            setInterval(tryPlaySound, 1000);
         });
     }
 
@@ -48,8 +42,6 @@
             audioSource.start(lastAt);
         }
     }
-
-    setInterval(tryPlaySound, 1000);
 
     const request = new XMLHttpRequest();
     const url = wav;

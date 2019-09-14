@@ -6,3 +6,5 @@
 > poker hand checker
 - [client](client.html)
 > WebRTC client(copied)
+- [bgm](bgm)
+> WebRTC client(copied)

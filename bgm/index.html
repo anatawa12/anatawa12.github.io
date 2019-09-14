@@ -4,7 +4,8 @@
 
 
 <script>
-    AudioContext = AudioContext || webkitAudioContext;
+    AudioContext = window.AudioContext // Default
+        || window.webkitAudioContext;
     let bufferData;
     let audioBuffer;
     let lastAt;

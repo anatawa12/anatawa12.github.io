@@ -36,7 +36,7 @@
     const playDiff =  60 + 31.406;
 
     function tryPlaySound() {
-        if (lastAt + playDiff > ctx.currentTime + 10) {
+        if (lastAt + playDiff < ctx.currentTime + 10) {
             const audioSource = ctx.createBufferSource();
             audioSource.buffer = audioBuffer;
             audioSource.connect(ctx.destination);

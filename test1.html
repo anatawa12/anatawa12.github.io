@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Hello World!</title>
+        <title>Hello World1!</title>
     </head>
     <body>
         <h1>Hello World!</h1>
@@ -47,7 +47,10 @@
         
         const initDevices = async () => {
         
-        localStream = await navigator.mediaDevices.getUserMedia();
+        localStream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: true,
+        });
         
         localVideo.srcObject = localStream;
         localVideo.volume = 0;

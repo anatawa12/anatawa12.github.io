@@ -8,5 +8,5 @@
 > WebRTC client(copied)
 - [bgm](bgm)
 > WebRTC client(copied)
-- [test.html](test.thml)
+- [test.html](test.html)
 > WebRTC test

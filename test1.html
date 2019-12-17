@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello World!</title>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        <br>
+        <button type="button" id="onHungUp">HungUp</button>
+        <button type="button" id="onPingPong">PingPong</button>
+        <div>
+            <label for="volume-chime">Chime</label>
+            <input id="volume-chime" type="range" value="1" min="0" max="5" step="0.05">
+            volume: <span id="volume-chime-show"></span>
+        </div>
+        <div>
+            <label for="volume-voice">Voice</label>
+            <input id="volume-voice" type="range" value="1" min="0" max="5" step="0.05">
+            volume: <span id="volume-voice-show"></span>
+        </div>
+        <div>
+            <video id="local_video" autoplay muted style="width: 160px; height: 120px; border: 1px solid black;"></video>
+            <video id="remote_video" autoplay style="width: 160px; height: 120px; border: 1px solid black;"></video>
+        </div>
+        <p>SDP to send:<br />
+            <!--suppress HtmlFormInputWithoutLabel -->
+            <textarea id="text_for_send_sdp" rows="5" cols="60" readonly="readonly">SDP to send</textarea>
+        </p>
+        <p>SDP to receive:&nbsp;
+            <button type="button" id="onSdpText">Receive remote SDP</button><br />
+            <!--suppress HtmlFormInputWithoutLabel -->
+            <textarea id="text_for_receive_sdp" rows="5" cols="60"></textarea>
+        </p>
+        
+        <!-- -->
+        
+    </body>
+    
+    <script>// This file is required by the index.html file and will
+        // be executed in the renderer process for that window.
+        // All of the Node.js APIs are available in this process.
+        
+        const start = async (config) => {
+        const localVideo = document.getElementById("local_video");
+        let localStream;
+        
+        const initDevices = async () => {
+        
+        localStream = await navigator.mediaDevices.getUserMedia();
+        
+        localVideo.srcObject = localStream;
+        localVideo.volume = 0;
+        await localVideo.play();
+        };
+        await initDevices();
+        console.log("-- start success!");
+        };
+        
+        start();
+        
+    </script>
+</html>

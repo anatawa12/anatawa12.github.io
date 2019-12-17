@@ -57,7 +57,7 @@
         videoIn: "HD Webcam",
         };
         
-        for (const mediaDeviceInfo of await window.navigator.``.enumerateDevices()) {
+        for (const mediaDeviceInfo of await window.navigator.mediaDevices.enumerateDevices()) {
         switch (mediaDeviceInfo.kind) {
         case "audioinput":
         if (!inputDeviceId && mediaDeviceInfo.label.indexOf(config.audioIn) !== -1) {

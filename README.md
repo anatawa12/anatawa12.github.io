@@ -12,3 +12,5 @@
 > WebRTC test1
 - [nfrserver-src](nfrserver-src)
 > source code of my articles on [nfrserver.info](https://nfrserver.info)
+- [Roulette](roulette)
+> a roulette which we can cheat.

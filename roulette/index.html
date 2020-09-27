@@ -1,0 +1,130 @@
+<meta name="viewport" content="width=device-width"/>
+<meta charset="UTF-8"/>
+
+<title>ルーレット</title>
+
+<style>
+    body {
+        margin: 0;
+    }
+
+    #main {
+        position: relative;
+        width: 300px;
+        height: 400px;
+    }
+
+    #main-header {
+        height: 20px;
+        margin-bottom: 5px;
+    }
+
+    #result {
+        height: 30px;
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    #item-config-dialog-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 355px;
+    }
+
+    #item-config-dialog {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    #item-config-header {
+        height: 18px;
+        margin-bottom: 5px;
+    }
+
+    #close-item-config {
+        display: inline-block;
+        float: right;
+        margin: 0;
+        padding: 3px;
+        border-style: solid;
+        border-color: black;
+        border-width: 1px;
+    }
+
+    .item-config-label {
+        display: inline-block;
+        width: 50px;
+    }
+
+    .item-config-input {
+        display: inline-block;
+        width: 100px;
+    }
+
+</style>
+
+<div id="main">
+    <div id="main-header">
+        <button id="add-item">
+            <svg viewBox="-5 -5 10 10" width="10" height="10">
+                <path d="M -1,-5 l 0,4 l -4,0 l 0,2 l 4,0 l 0,4 l 2,0 l 0,-4 l 4,0 l 0,-2 l -4,0 l 0,-4 z"/>
+            </svg>
+        </button>
+        v8
+    </div>
+
+    <p id="result"></p>
+
+    <svg viewBox="-150 -160 300 310" width="300" height="310">
+        <g id="circle">
+        </g>
+        <circle id="start-stop" cx="0" cy="0" r="75" fill="#fff"/>
+        <text id="start-stop-label" fill="#000" text-anchor="middle" alignment-baseline="middle"
+              style="pointer-events: none;">START
+        </text>
+        <path
+                d="M 0,-140 L -10,-160 L 10,-160 z"
+                fill="#f20"
+                stroke="#fff"/>
+    </svg>
+
+
+    <div id="item-config-dialog-wrapper" hidden>
+        <div id="item-config-dialog">
+            <div id="item-config-header">
+                <button id="delete-item">削除</button>
+                <svg id="close-item-config" viewBox="-5 -5 10 10" width="10" height="10">
+                    <path d="M -3,-5 l -2,2 l 3,3 l -3,3 l 2,2 l 3,-3 l 3,3 l 2,-2 l -3,-3 l 3,-3 l -2,-2 l -3,3 z"/>
+                </svg>
+            </div>
+            <div id="item-config-body">
+                <label for="item-name" class="item-config-label">名前: </label><input id="item-name"
+                                                                                    class="item-config-input"
+                                                                                    type="text"><br>
+                <label for="item-color" class="item-config-label">色: </label><input id="item-color"
+                                                                                    class="item-config-input"
+                                                                                    type="color"><br>
+                <details>
+                    <summary>詳細</summary>
+                    <label for="item-rate" class="item-config-label">割合: </label><input id="item-rate"
+                                                                                        class="item-config-input"
+                                                                                        type="number"><br>
+                </details>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br>
+<script src="index.js"></script>
+<script src="scale2fit.js"></script>

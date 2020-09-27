@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ebccb259-aa5b-47d5-9203-02f337444b72" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1i56xmeRT21mJ8oKEt7hFWakUNH" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ebccb259-aa5b-47d5-9203-02f337444b72" name="Default Changelist" comment="" />
+      <created>1601185354641</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601185354641</updated>
+      <workItem from="1601185355678" duration="17144000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="458" y="192" key="SettingsEditor" timestamp="1601197873573">
+      <screen x="0" y="23" width="3200" height="1777" />
+    </state>
+    <state x="458" y="192" key="SettingsEditor/0.23.3200.1777@0.23.3200.1777" timestamp="1601197873573" />
+    <state x="201" y="123" width="1511" height="860" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1601194891937">
+      <screen x="0" y="23" width="3200" height="1777" />
+    </state>
+    <state x="201" y="123" width="1511" height="860" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.3200.1777@0.23.3200.1777" timestamp="1601194891937" />
+    <state x="621" y="256" width="670" height="675" key="run.anything.popup" timestamp="1601212599564">
+      <screen x="0" y="23" width="3200" height="1777" />
+    </state>
+    <state x="621" y="256" width="670" height="675" key="run.anything.popup/0.23.3200.1777@0.23.3200.1777" timestamp="1601212599564" />
+    <state x="621" y="259" width="670" height="676" key="search.everywhere.popup" timestamp="1601195775508">
+      <screen x="0" y="23" width="3200" height="1777" />
+    </state>
+    <state x="621" y="259" width="670" height="676" key="search.everywhere.popup/0.23.3200.1777@0.23.3200.1777" timestamp="1601195775508" />
+  </component>
+</project>

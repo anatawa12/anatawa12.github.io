@@ -59,6 +59,7 @@ class RouletteElement {
             this.ctrl.elements.splice(i, 1);
             itemConfigDialogWrapper.hidden = true;
             this.ctrl.drawCircle();
+            this.gTag.remove()
         }
         closeItemConfig.onclick = () => {
             this.name = itemName.value;

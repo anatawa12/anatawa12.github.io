@@ -14,3 +14,5 @@
 > source code of my articles on [nfrserver.info](https://nfrserver.info)
 - [Roulette](roulette)
 > a roulette which we can cheat.
+- [camera-share](camera-share)
+> share camera to another device
